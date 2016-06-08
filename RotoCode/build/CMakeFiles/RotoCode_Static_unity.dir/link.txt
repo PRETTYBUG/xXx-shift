@@ -1,0 +1,2 @@
+/usr/bin/ar qc libRotoCode_Static.a  CMakeFiles/RotoCode_Static_unity.dir/cotire/RotoCode_Static_CXX_unity.cxx.o
+/usr/bin/ranlib libRotoCode_Static.a

@@ -1,0 +1,98 @@
+/* 
+ * Copyright (c) 2016 Savchenko Yehor
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef  _GAUSS_H_
+#define  _GAUSS_H_
+
+#include <cmath>
+
+struct gauss
+{
+	Mat* A;
+	Mat* D;
+
+
+	inline
+	bool perform()
+	{
+		const uint32_t m = A->rows();
+		const uint32_t n = A->cols();
+		const uint32_t min = std::min(m, n);
+
+		for(uint32_t k = 0; k != min; k++)
+		{
+			auto col = A->col(k).bottomRows(A->rows() - k).cast<double>().array();
+			uint32_t max_pos;
+			for(max_pos = 0; max_pos != m; max_pos++)
+			{
+				if(col[max_pos] != 0)
+				{
+					break;
+				} 
+			}
+		
+			if(col[max_pos] == 0)
+				return false; // failed
+
+			max_pos = max_pos + k; // + k because we shrinked the column from the above with k
+			// swap
+			A->row(max_pos).swap(A->row(k));
+			D->row(max_pos).swap(D->row(k));
+
+			// make this one
+			double alpha = (*A)(k, k);
+			A->row(k)/=alpha;
+			D->row(k)/=alpha;
+
+
+
+			// destroy bottom
+			for(uint32_t i = k + 1; i != m; i++) 
+			{
+				double beta  = (*A)(i, k);
+				if(beta != 0) 
+				{
+					A->row(i)  -= A->row(k) * beta;
+					D->row(i)  -= D->row(k) * beta;
+				}
+			}
+
+
+
+			// destroy up
+			for(uint32_t i = 0; i != k; i++) 
+			{
+				double beta  = (*A)(i, k);
+				if(beta != 0)
+				{
+					A->row(i)  -= A->row(k) * beta;
+					D->row(i)  -= D->row(k) * beta;
+				}
+			}
+
+		}
+		return true;
+	}
+
+	inline
+	gauss(Mat* A, Mat* D): A{A}, D{D}
+	{
+	}
+
+};
+
+
+#endif   /* ----- #ifndef _GAUSS_H_  ----- */

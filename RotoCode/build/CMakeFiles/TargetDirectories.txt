@@ -1,0 +1,8 @@
+/home/yegor/Documents/cpp/projects/RotoCode/build/CMakeFiles/edit_cache.dir
+/home/yegor/Documents/cpp/projects/RotoCode/build/CMakeFiles/Decoder_unity.dir
+/home/yegor/Documents/cpp/projects/RotoCode/build/CMakeFiles/RotoCode_Static.dir
+/home/yegor/Documents/cpp/projects/RotoCode/build/CMakeFiles/clean_cotire.dir
+/home/yegor/Documents/cpp/projects/RotoCode/build/CMakeFiles/rebuild_cache.dir
+/home/yegor/Documents/cpp/projects/RotoCode/build/CMakeFiles/Decoder.dir
+/home/yegor/Documents/cpp/projects/RotoCode/build/CMakeFiles/RotoCode_Static_unity.dir
+/home/yegor/Documents/cpp/projects/RotoCode/build/CMakeFiles/all_unity.dir
